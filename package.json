@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@aws-amplify/ui-react": "^6.5.5",
     "@radix-ui/react-accordion": "^1.2.2",
@@ -19,7 +21,11 @@
     "next": "^15.1.6",
     "react": "^18",
     "react-dom": "^18",
-    "react-hook-form": "^7.50.1"
+    "react-hook-form": "^7.50.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "openid-client": "^5.7.0"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.5.1",
@@ -37,5 +43,5 @@
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.19.0",
     "typescript": "^5.6.2"
-  }
+  }  
 }
