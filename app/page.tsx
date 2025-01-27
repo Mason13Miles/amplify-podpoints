@@ -7,6 +7,7 @@ import "./../app/app.css";
 import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 Amplify.configure(outputs);
 
@@ -14,15 +15,14 @@ const client = generateClient<Schema>();
 
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  function listTodos() {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }
+  const { user, signOut } = useAuthenticator();
 
   useEffect(() => {
-    listTodos();
+    const listTodos = client.models.Todo.observeQuery().subscribe({
+      next: (data) => setTodos([...data.items]),
+    });
+
+    return () => listTodos.unsubscribe(); // Cleanup subscription
   }, []);
 
   function createTodo() {
@@ -31,13 +31,20 @@ export default function App() {
     });
   }
 
+  function deleteTodo(id: string) {
+    client.models.Todo.delete({ id });
+  }
+
   return (
     <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
+            <h1>{user?.signInDetails?.loginId}'s todos</h1>
+      <h1>My Todos</h1>
+      <button onClick={createTodo}>+ New</button>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+          <li onClick={() => deleteTodo(todo.id)} key={todo.id}>
+            {todo.content}
+          </li>
         ))}
       </ul>
       <div>
@@ -50,3 +57,5 @@ export default function App() {
     </main>
   );
 }
+
+
