@@ -17,7 +17,7 @@ export function Header() {
             <Link href="#pricing">Pricing</Link>
           </Button>
           <Button variant="ghost" asChild>
-            <Link href="/signin">Sign In</Link>
+            <Link href="/dashboard">Sign In</Link>
           </Button>
           <Button asChild>
             <Link href="/onboarding">Get Started</Link>

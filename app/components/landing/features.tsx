@@ -10,7 +10,7 @@ const features = [
   },
   {
     icon: FastForward,
-    title: "Skip Unimportant Parts",
+    title: "Skip the Fluff",
     description: "Save time by focusing on the content that matters most to you"
   },
   {
