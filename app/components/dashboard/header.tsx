@@ -3,8 +3,12 @@
 import { Headphones } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
 export function Header() {
+
+  const { signOut } = useAuthenticator();
+
   return (
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 border-b">
       <div className="flex h-16 w-full items-center px-4 justify-between">
@@ -22,6 +26,7 @@ export function Header() {
           <Button variant="ghost" asChild>
             <Link href="/dashboard">Menu</Link>
           </Button>
+          <button onClick={signOut}>Sign out</button>
         </nav>
       </div>
     </header>

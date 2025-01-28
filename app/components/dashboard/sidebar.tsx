@@ -24,6 +24,22 @@ export default function Sidebar() {
           </Accordion.Content>
         </Accordion.Item>
 
+        {/* Fo.lowing Section */}
+        <Accordion.Item value="following">
+          <Accordion.Trigger className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition">
+            Following
+            <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+          </Accordion.Trigger>
+          <Accordion.Content className="pl-4 mt-2 space-y-2 text-gray-700">
+            <Link href="/subscriptions/podcasts" className="block hover:underline">
+              Podcasts
+            </Link>
+            <Link href="/subscriptions/newsletters" className="block hover:underline">
+              Newsletters
+            </Link>
+          </Accordion.Content>
+        </Accordion.Item>
+
         {/* Explore Section */}
         <Accordion.Item value="explore">
           <Accordion.Trigger className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition">

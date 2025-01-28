@@ -19,10 +19,11 @@
 //     </html>
 //   );
 // }
-
+import { Amplify } from 'aws-amplify';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Header } from  "./components/landing/header";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,15 +32,14 @@ export const metadata: Metadata = {
   description: 'AI-powered podcast summaries tailored to your interests',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-          {children}
+    <html lang="en">
+      <body className="flex flex-col min-h-screen">
+        <Header /> {/* ✅ Navigation is always visible & updates dynamically */}
+        <main className="flex-grow">{children}</main>
       </body>
     </html>
   );
