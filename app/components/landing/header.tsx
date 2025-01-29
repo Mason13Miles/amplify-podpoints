@@ -41,7 +41,7 @@ export function Header() {
                 <Link href="/subscriptions">Sign In</Link>
               </Button>
               <Button asChild>
-                <Link href="/welcome">Get Started</Link>
+                <Link href="/create">Get Started</Link>
               </Button>
             </>
           

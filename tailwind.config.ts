@@ -22,7 +22,7 @@ const config: Config = {
         },
         'ivory': '#e2ded0',
         'cool-gray': '#4e4f50',
-        'gray': '#746c70',
+        'mid-gray': '#746c70',
         border: "hsl(var(--border, 220 13% 91%))", // Light gray fallback
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
