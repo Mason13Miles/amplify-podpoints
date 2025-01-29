@@ -22,7 +22,7 @@ export function Header() {
         {/* Navigation menu on the far right */}
         <nav className="flex items-center space-x-4 ml-auto">
           <Button variant="ghost" asChild>
-            <Link href="/admin">Admin View</Link>
+            <Link href="/subscriptions">User view</Link>
           </Button>
           <HamburgerMenu />
           {/* <button onClick={signOut}>Sign out</button> */}

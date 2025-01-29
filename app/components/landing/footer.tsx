@@ -5,19 +5,18 @@ import Link from "next/link"
 
 const footerLinks = {
   Support: [
-    { name: "Help Center", href: "#" },
-    { name: "FAQ", href: "#" },
-    { name: "Status", href: "#" },
-    { name: "Contact", href: "#" }
+    { name: "FAQ", href: "/faq" },
+    { name: "Status", href: "/status" },
+    { name: "Contact", href: "/contact" }
   ],
   Product: [
-    { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" }
+    { name: "Features", href: "/features" },
+    { name: "Pricing", href: "/pricing" }
   ],
   Legal: [
-    { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
-    { name: "Cookie Policy", href: "#" }
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Cookie Policy", href: "/cookies" }
   ]
 }
 
@@ -28,8 +27,10 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           <div className="col-span-2">
             <div className="flex items-center space-x-2 mb-4">
+            <Link href="/" className="flex items-center space-x-2">
               <Headphones className="h-6 w-6 text-blue-gray-600" />
               <span className="text-xl font-bold text-blue-gray-600">PodPoints</span>
+            </Link>
             </div>
             <p className="text-muted-foreground mb-4 max-w-xs">
               Transform your podcast listening experience with AI-powered summaries tailored to your interests.

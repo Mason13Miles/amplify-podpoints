@@ -57,7 +57,7 @@ export default function Sidebar() {
                 onClick={() => handleHeaderClick("subscriptions")}
                 className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition cursor-pointer"
               >
-                Subscriptions
+                Support Tickets
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </div>
             </Accordion.Trigger>
@@ -81,7 +81,7 @@ export default function Sidebar() {
                 onClick={() => handleHeaderClick("following")}
                 className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition cursor-pointer"
               >
-                Following
+                AI Prompts
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </div>
             </Accordion.Trigger>
@@ -117,7 +117,7 @@ export default function Sidebar() {
                 onClick={() => handleHeaderClick("explore")}
                 className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition cursor-pointer"
               >
-                Explore
+                Stats
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </div>
             </Accordion.Trigger>
@@ -148,4 +148,3 @@ export default function Sidebar() {
     </aside>
   );
 }
-

@@ -24,6 +24,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from  "./components/landing/header";
+import { Footer } from "./components/landing/footer";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,8 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen">
-        <Header /> {/* ✅ Navigation is always visible & updates dynamically */}
+        
         <main className="flex-grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
-import React from 'react'
+import { Features } from "../../components/landing/features";
 
-const page = () => {
+export default function FeaturesPage() {
   return (
-    <div>page</div>
-  )
+    <div>
+      <Features />
+    </div>
+  );
 }
-
-export default page
