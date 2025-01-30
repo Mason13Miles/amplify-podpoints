@@ -54,12 +54,15 @@
 //     </AuthGuard>
 //   );
 // }
+'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "../components/dashboard/header";
 import Sidebar from "../components/dashboard/sidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header at the top */}
@@ -67,16 +70,31 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       {/* Sidebar + Page Content */}
       <div className="flex flex-row mt-16 flex-grow">
-        {/* Sidebar on the left with fixed width */}
-        <aside className="w-64 bg-gray-100 min-h-screen">
+        {/* Sidebar Toggle Button (Only Visible on Small Screens) */}
+        <button
+          className="absolute top-4 left-4 z-50 text-white px-3 py-2 rounded-lg lg:hidden"
+          onClick={() => setSidebarOpen((prev) => !prev)}
+        >
+          ☰ Menu
+        </button>
+
+        {/* Sidebar - Visible on Large Screens, Hidden on Mobile */}
+        <aside
+          className={`fixed inset-y-0 left-0 w-64  text-white min-h-screen p-4 transform transition-transform duration-300 ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:relative lg:translate-x-0 lg:w-80`}
+        >
           <Sidebar />
         </aside>
 
-        {/* Page Content on the right */}
-        <main className="flex-grow p-6">{children}</main>
+        {/* Page Content (Main) */}
+        <main className="flex-grow p-4 sm:p-6 max-w-screen-lg mx-auto">
+          {children}
+        </main>
       </div>
     </div>
   );
 };
 
 export default Layout;
+

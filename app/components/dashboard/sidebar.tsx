@@ -41,7 +41,7 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 h-screen bg-gray-100 border-r p-4">
+    <aside className="w-64 h-screen border-r p-4">
       <Accordion.Root
         type="single"
         collapsible
@@ -55,7 +55,7 @@ export default function Sidebar() {
             <Accordion.Trigger className="group flex items-center w-full">
               <div
                 onClick={() => handleHeaderClick("subscriptions")}
-                className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition cursor-pointer"
+                className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 rounded-md hover:bg-gray-300 transition cursor-pointer"
               >
                 Subscriptions
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
@@ -79,7 +79,7 @@ export default function Sidebar() {
             <Accordion.Trigger className="group flex items-center w-full">
               <div
                 onClick={() => handleHeaderClick("following")}
-                className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition cursor-pointer"
+                className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800  rounded-md hover:bg-gray-300 transition cursor-pointer"
               >
                 Following
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
@@ -115,7 +115,7 @@ export default function Sidebar() {
             <Accordion.Trigger className="group flex items-center w-full">
               <div
                 onClick={() => handleHeaderClick("explore")}
-                className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 bg-gray-200 rounded-md hover:bg-gray-300 transition cursor-pointer"
+                className="flex items-center justify-between w-full p-3 text-lg font-medium text-gray-800 rounded-md hover:bg-gray-300 transition cursor-pointer"
               >
                 Explore
                 <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
