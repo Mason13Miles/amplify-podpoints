@@ -215,8 +215,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // For navigation
+import { useRouter } from "next/navigation"; 
 import { motion } from "framer-motion";
+import { db } from "../../../firebase/config"; 
+import { getAuth } from "firebase/auth";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
+
 
 // Dummy data for 60 podcasts
 const PODCASTS = Array.from({ length: 60 }, (_, i) => ({
@@ -226,7 +230,7 @@ const PODCASTS = Array.from({ length: 60 }, (_, i) => ({
 }));
 
 export default function PodcastSelection() {
-  const [selectedPodcasts, setSelectedPodcasts] = useState<number[]>([]);
+  const [followedPodcasts, setFollowedPodcasts] = useState<number[]>([]);
   const [hovered, setHovered] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter(); // Next.js navigation
@@ -237,20 +241,52 @@ export default function PodcastSelection() {
   };
 
   // Handles podcast selection toggle
-  const handleSelectPodcast = (id: number) => {
-    setSelectedPodcasts((prev) =>
+  const handleFollowPodcast = (id: number) => {
+    setFollowedPodcasts((prev) =>
       prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
     );
   };
 
   // Handles button click - Save & Redirect
   const handleProceed = async () => {
-    if (selectedPodcasts.length < 3) return;
+    if (followedPodcasts.length < 3) return;
+  
+    setLoading(true);
     
-    setLoading(true); // Start loading
-    await saveSelectionToDatabase(); // Simulated API call
-    router.push("/subscribe"); // Redirect to next page
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+  
+      if (!user) {
+        console.error("No authenticated user found");
+        setLoading(false);
+        return;
+      }
+  
+      const userDocRef = doc(db, "users", user.uid);
+  
+      // Convert selected podcasts into a Firestore map
+      const podcastMap = followedPodcasts.reduce((acc, id) => {
+        const podcast = PODCASTS.find((p) => p.id === id);
+        if (podcast) {
+          acc[id] = { title: podcast.title, image: podcast.image };
+        }
+        return acc;
+      }, {} as Record<number, { title: string; image: string }>);
+  
+      // Update Firestore (if document exists, update; otherwise, create it)
+      await updateDoc(userDocRef, { followedPodcasts: podcastMap }).catch(() => {
+        return setDoc(userDocRef, { followedPodcasts: podcastMap });
+      });
+  
+      router.push("/subscribe"); // Redirect after saving
+    } catch (error) {
+      console.error("Error saving podcasts:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+  
 
   return (
     <div className="max-w-4xl mx-auto p-6 flex flex-col items-center">
@@ -258,7 +294,7 @@ export default function PodcastSelection() {
       {/* Selected Podcasts Section */}
       <div className="p-4 mb-2 h-[30vh] flex items-end overflow-hidden">
           <div className="flex flex-wrap-reverse justify-center gap-2">
-            {selectedPodcasts.map((id) => {
+            {followedPodcasts.map((id) => {
               const podcast = PODCASTS.find((p) => p.id === id);
               return (
                 <motion.div
@@ -302,7 +338,7 @@ export default function PodcastSelection() {
                 className={`relative w-12 h-12 rounded-lg shadow-md cursor-pointer overflow-hidden justify-center transition-all ${
                   hovered === podcast.id ? "bg-blue-200 scale-110" : "bg-white"
                 }`}
-                onClick={() => handleSelectPodcast(podcast.id)}
+                onClick={() => handleFollowPodcast(podcast.id)}
               >
                 <img
                   src={podcast.image}
@@ -328,19 +364,19 @@ export default function PodcastSelection() {
       {/* Proceed Button */}
       <button
         onClick={handleProceed}
-        disabled={selectedPodcasts.length < 3 || loading}
+        disabled={followedPodcasts.length < 3 || loading}
         className={`mt-6 px-6 py-3 text-white rounded-lg transition-all ${
-          selectedPodcasts.length < 3
+          followedPodcasts.length < 3
             ? "bg-red-300 cursor-not-allowed"
             : "bg-blue-600 hover:bg-blue-700"
         } ${loading ? "opacity-50 cursor-wait" : ""}`}
       >
         {loading ? "Saving..." : "Continue"}
       </button>
-      {selectedPodcasts.length < 3 && (
+      {followedPodcasts.length < 3 && (
     <div className="flex items-center gap-2 text-red-600 p-2 m-4">
       <p>
-        Select at least <strong>{3 - selectedPodcasts.length}</strong> more podcast{selectedPodcasts.length === 2 ? "" : "s"}.
+        Select at least <strong>{3 - followedPodcasts.length}</strong> more podcast{followedPodcasts.length === 2 ? "" : "s"}.
       </p>
     </div>
 )}
